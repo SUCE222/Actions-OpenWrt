@@ -103,6 +103,10 @@ jobs:
       run: |
         cd openwrt/bin/targets/*/*
         rm -rf packages
+        rm -rf openwrt-x86-64-combined-squashfs.img
+        rm -rf openwrt-x86-64-combined-squashfs.vmdk
+        rm -rf openwrt-x86-64-rootfs-squashfs.img
+        rm -rf openwrt-x86-64-vmlinuz
         echo "::set-env name=FIRMWARE::$(pwd)"
 
     - name: Upload firmware
