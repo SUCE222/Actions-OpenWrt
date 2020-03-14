@@ -26,8 +26,7 @@ env:
   REPO_BRANCH: master
   CONFIG_FILE: .config
   DIY_SH: diy.sh
-  SSH_ACTIONS: false
-  REPLACE_DTS: true
+  SSH_ACTIONS: true
   UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
   TZ: Asia/Shanghai
@@ -80,14 +79,6 @@ jobs:
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
-    - name: Replace the dts for hc5661
-      id: dts
-      if: env.REPLACE_DTS == 'true' && !cancelled()
-      run: |
-        cd openwrt/target/linux/ramips/dts
-        rm -rf mt7628an_hiwifi_hc5661a.dts
-        wget --no-check-certificate https://raw.githubusercontent.com/SUCE222/Actions-OpenWrt/master/mt7628an_hiwifi_hc5661a.dts
-        
     - name: Compile the firmware
       id: compile
       run: |
