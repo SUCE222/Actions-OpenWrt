@@ -27,6 +27,7 @@ env:
   CONFIG_FILE: .config
   DIY_SH: diy.sh
   SSH_ACTIONS: false
+  REPLACE_DTS: true
   UPLOAD_BIN_DIR: true
   UPLOAD_FIRMWARE: true
   TZ: Asia/Shanghai
@@ -81,6 +82,7 @@ jobs:
         find dl -size -1024c -exec rm -f {} \;
     - name: Replace the dts for hc5661
       id: dts
+      if: env.REPLACE_DTS == 'true' && !cancelled()
       run: |
         cd openwrt/target/linux/ramips/dts
         rm -rf mt7628an_hiwifi_hc5661a.dts
